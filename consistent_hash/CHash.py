@@ -9,6 +9,8 @@
 """
 A minimal consistent hash implementation
 """
+from bisect import bisect_left
+
 from HashScheme import HashScheme
 import hashlib
 
@@ -75,14 +77,9 @@ class CHash(HashScheme):
         """
         Binary search the right spot for the given value in the hash ring.
         """
-        while (l < r):
-            mid = l + (r - l) // 2
-            if sorted_nodes[mid] <= hash_value and hash_value < sorted_nodes[r]:
-                return self.nodes[sorted_nodes[mid]]
+        found_index = bisect_left(sorted_nodes, hash_value)
+        if sorted_nodes[found_index] != hash_value:
+            found_index -= 1
 
-            elif hash_value < sorted_nodes[mid]:
-                r = mid
-
-            else:
-                l = mid
+        return self.nodes[sorted_nodes[found_index]]
 
