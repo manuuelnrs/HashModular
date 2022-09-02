@@ -38,7 +38,8 @@ def run(words):
   to the store, the selected hash scheme is used to determine where to place
   the records.
   """
-  my_hash = CHash()
+  #my_hash = CHash()
+  my_hash = ModHash()
   my_store = Store(my_hash)
   
   
@@ -65,6 +66,7 @@ def run(words):
   Remove one node from the Store. Stored objects need to be migrated to the
   remaining nodes.
   """
+  print(" ----REMOVIENDO NODO 1........")
   my_store.remove_node("Node 1")
   my_store.dump()
 
@@ -73,14 +75,13 @@ def run(words):
   Add the node back to the Store. Objects need to be migrated to conform to the
   Hash scheme.
   """
+  print(" ----AÑADIENDO NODO 1........")
   my_store.add_node("Node 1")
   my_store.dump()
 
-
-
 if __name__ == '__main__':
 
-  words = read_words('words_alpha.txt')
+  words = read_words('C:\\Users\\ASUS\\Downloads\\A_SEMESTRE2023_I\\SD\HashModular\\HashModular\\consistent_hash\\words_alpha.txt')
   words = words[:100]
 
   run(words)
